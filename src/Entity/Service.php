@@ -6,8 +6,7 @@ use DOMDocument;
 use DOMElement;
 use Ups\NodeInterface;
 
-class Service implements NodeInterface
-{
+class Service implements NodeInterface {
     // Valid domestic values
     const S_AIR_1DAYEARLYAM = '14';
     const S_AIR_1DAY = '01';
@@ -100,16 +99,9 @@ class Service implements NodeInterface
         '85' => 'UPS Today Express',
         '86' => 'UPS Today Express Saver',
         '96' => 'UPS Worldwide Express Freight',
-        '59' => 'UPS Second Day Air AM',
-        '65' => 'UPS Saver',
-        '70' => 'UPS Access Point Economy',
-        '74' => 'UPS Express 12:00',
         '93' => 'UPS Sure Post',
-        '96' => 'UPS Worldwide Express Freight',
-    ];
 
-    /** @deprecated */
-    public $Description;
+    ];
 
     /**
      * @var string
@@ -124,8 +116,7 @@ class Service implements NodeInterface
     /**
      * @param null|object $attributes
      */
-    public function __construct($attributes = null)
-    {
+    public function __construct($attributes = null) {
         if (null !== $attributes) {
             if (isset($attributes->Code)) {
                 $this->setCode($attributes->Code);
@@ -139,8 +130,7 @@ class Service implements NodeInterface
     /**
      * @return array
      */
-    public static function getServices()
-    {
+    public static function getServices() {
         return self::$serviceNames;
     }
 
@@ -149,8 +139,7 @@ class Service implements NodeInterface
      *
      * @return DOMElement
      */
-    public function toNode(DOMDocument $document = null)
-    {
+    public function toNode(DOMDocument $document = null) {
         if (null === $document) {
             $document = new DOMDocument();
         }
@@ -165,16 +154,14 @@ class Service implements NodeInterface
     /**
      * @return string
      */
-    public function getName()
-    {
-        return self::$serviceNames[$this->getCode()];
+    public function getName() {
+        return self::$serviceNames[$this->getCode()] ?? '';
     }
 
     /**
      * @return string
      */
-    public function getCode()
-    {
+    public function getCode() {
         return $this->code;
     }
 
@@ -183,8 +170,7 @@ class Service implements NodeInterface
      *
      * @return $this
      */
-    public function setCode($code)
-    {
+    public function setCode($code) {
         $this->code = $code;
 
         return $this;
@@ -193,8 +179,7 @@ class Service implements NodeInterface
     /**
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -203,9 +188,7 @@ class Service implements NodeInterface
      *
      * @return $this
      */
-    public function setDescription($description)
-    {
-        $this->Description = $description;
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;

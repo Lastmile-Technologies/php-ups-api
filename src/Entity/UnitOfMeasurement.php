@@ -74,7 +74,7 @@ class UnitOfMeasurement implements NodeInterface {
     private $description;
 
     /**
-     * @param null|array $attributes
+     * @param null|object $attributes
      */
     public function __construct($attributes = null) {
         if (null !== $attributes) {
