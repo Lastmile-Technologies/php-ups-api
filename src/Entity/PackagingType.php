@@ -6,8 +6,7 @@ use DOMDocument;
 use DOMElement;
 use Ups\NodeInterface;
 
-class PackagingType implements NodeInterface
-{
+class PackagingType implements NodeInterface {
     const PT_UNKNOWN = '00';
     const PT_UPSLETTER = '01';
     const PT_PACKAGE = '02';
@@ -70,13 +69,12 @@ class PackagingType implements NodeInterface
      */
     private $description;
 
-    public function __construct($attributes = null)
-    {
-        if (isset($attributes->Description)) {
-            $this->setDescription($attributes->Description);
+    public function __construct($attributes = null) {
+        if (isset($attributes->description)) {
+            $this->setDescription($attributes->description);
         }
-        if (isset($attributes->Code)) {
-            $this->setCode($attributes->Code);
+        if (isset($attributes->code)) {
+            $this->setCode($attributes->code);
         }
     }
 
@@ -85,15 +83,17 @@ class PackagingType implements NodeInterface
      *
      * @return DOMElement
      */
-    public function toNode(DOMDocument $document = null)
-    {
+    public function toNode(DOMDocument $document = null) {
         if (null === $document) {
             $document = new DOMDocument();
         }
 
         $node = $document->createElement('PackagingType');
         $node->appendChild($document->createElement('Code', $this->getCode()));
-        $node->appendChild($document->createElement('Description', $this->getDescription()));
+
+        if (!empty($this->getDescription())) {
+            $node->appendChild($document->createElement('Description', $this->getDescription()));
+        }
 
         return $node;
     }
@@ -101,8 +101,7 @@ class PackagingType implements NodeInterface
     /**
      * @return string
      */
-    public function getCode()
-    {
+    public function getCode() {
         return $this->code;
     }
 
@@ -111,9 +110,8 @@ class PackagingType implements NodeInterface
      *
      * @return $this
      */
-    public function setCode($code)
-    {
-        $this->Code = $code;
+    public function setCode($code) {
+
         $this->code = $code;
 
         return $this;
@@ -122,8 +120,7 @@ class PackagingType implements NodeInterface
     /**
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -132,9 +129,7 @@ class PackagingType implements NodeInterface
      *
      * @return $this
      */
-    public function setDescription($description)
-    {
-        $this->Description = $description;
+    public function setDescription($description) {
         $this->description = $description;
 
         return $this;
