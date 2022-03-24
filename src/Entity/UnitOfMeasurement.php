@@ -6,11 +6,10 @@ use DOMDocument;
 use DOMElement;
 use Ups\NodeInterface;
 
-class UnitOfMeasurement implements NodeInterface
-{
+class UnitOfMeasurement implements NodeInterface {
     // PackageWeight
-    const UOM_LBS = 'LBS'; // Pounds (defalut)
-    const UOM_KGS = 'KGS'; // Kilograms
+    const UOM_LBS = 'LBS'; // Pounds
+    const UOM_KGS = 'KGS'; // Kilograms(defalut)
 
     // Dimensions
     const UOM_IN = 'IN'; // Inches
@@ -62,10 +61,7 @@ class UnitOfMeasurement implements NodeInterface
     const PROD_YARD = 'YD';
     const PROD_OTHER = 'OTH';
 
-    /** @deprecated */
-    public $Code = self::UOM_LBS;
-    /** @deprecated */
-    public $Description;
+
 
     /**
      * @var string
@@ -80,14 +76,13 @@ class UnitOfMeasurement implements NodeInterface
     /**
      * @param null|array $attributes
      */
-    public function __construct($attributes = null)
-    {
+    public function __construct($attributes = null) {
         if (null !== $attributes) {
-            if (isset($attributes->Code)) {
-                $this->setCode($attributes->Code);
+            if (isset($attributes->code)) {
+                $this->setCode($attributes->code);
             }
-            if (isset($attributes->Description)) {
-                $this->setDescription($attributes->Description);
+            if (isset($attributes->description)) {
+                $this->setDescription($attributes->description);
             }
         }
     }
@@ -97,13 +92,13 @@ class UnitOfMeasurement implements NodeInterface
      *
      * @return DOMElement
      */
-    public function toNode(DOMDocument $document = null)
-    {
+    public function toNode(DOMDocument $document = null) {
         if (null !== $document) {
             $node = $document->createElement('UnitOfMeasurement');
             $node->appendChild($document->createElement('Code', $this->getCode()));
-            $node->appendChild($document->createElement('Description', $this->getDescription()));
-
+            if (!empty($this->getDescription())) {
+                $node->appendChild($document->createElement('Description', $this->getDescription()));
+            }
             return $node;
         }
 
@@ -113,8 +108,7 @@ class UnitOfMeasurement implements NodeInterface
     /**
      * @return string
      */
-    public function getCode()
-    {
+    public function getCode() {
         return $this->code;
     }
 
@@ -123,9 +117,7 @@ class UnitOfMeasurement implements NodeInterface
      *
      * @return $this
      */
-    public function setCode($code)
-    {
-        $this->Code = $code;
+    public function setCode($code) {
         $this->code = $code;
 
         return $this;
@@ -134,8 +126,7 @@ class UnitOfMeasurement implements NodeInterface
     /**
      * @return string
      */
-    public function getDescription()
-    {
+    public function getDescription() {
         return $this->description;
     }
 
@@ -144,9 +135,8 @@ class UnitOfMeasurement implements NodeInterface
      *
      * @return $this
      */
-    public function setDescription($description)
-    {
-        $this->Description = $description;
+    public function setDescription($description) {
+
         $this->description = $description;
 
         return $this;
