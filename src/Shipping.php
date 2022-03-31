@@ -435,7 +435,7 @@ class Shipping extends Ups
             $shipmentNode->appendChild($xml->createElement('Locale', $shipment->getLocale()));
         }
 
-        print_r($xml->saveXML());
+        // print_r($xml->saveXML());
         return $xml->saveXML();
     }
 
